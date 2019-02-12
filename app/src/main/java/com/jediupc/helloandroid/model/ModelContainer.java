@@ -38,6 +38,7 @@ public class ModelContainer implements Serializable {
         Log.d("ModelContainer", gson.toJson(this));
     }
 
+
     public void save(Context c) {
         try {
             FileOutputStream fos = c.openFileOutput("model.json", Context.MODE_PRIVATE);

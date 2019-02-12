@@ -8,24 +8,26 @@ import android.view.ViewGroup;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
-import com.jediupc.helloandroid.model.ModelContainer;
+import com.jediupc.helloandroid.model.Assignatura;
 
+import java.util.ArrayList;
 import java.util.Collections;
 
 public class MyActesAdapter extends RecyclerView.Adapter<MyActesAdapter.MyViewHolder> implements ItemTouchHelperAdapter {
     private final OnItemClickListener mListener;
-    private ModelContainer mDataset;
+    private Assignatura mDataset;
 
     @Override
     public void onItemMove(int fromPosition, int toPosition) {
+        Log.d("MyActesAdapter", "onIntemMove");
         if (fromPosition < toPosition) {
             for (int i = fromPosition; i < toPosition; i++) {
-                Collections.swap(mDataset.assignaturas, i, i + 1);
+                Collections.swap(mDataset.actes, i, i + 1);
                 Log.d("Gallery", "From " + fromPosition + " " + toPosition);
             }
         } else {
             for (int i = fromPosition; i > toPosition; i--) {
-                Collections.swap(mDataset.assignaturas, i, i - 1);
+                Collections.swap(mDataset.actes, i, i - 1);
             }
         }
 
@@ -34,7 +36,7 @@ public class MyActesAdapter extends RecyclerView.Adapter<MyActesAdapter.MyViewHo
 
     @Override
     public void onItemDismiss(int position) {
-        mDataset.assignaturas.remove(position);
+        mDataset.actes.remove(position);
         notifyItemRemoved(position);
     }
 
@@ -59,7 +61,7 @@ public class MyActesAdapter extends RecyclerView.Adapter<MyActesAdapter.MyViewHo
     }
 
     // Provide a suitable constructor (depends on the kind of dataset)
-    public MyActesAdapter(ModelContainer myDataset, OnItemClickListener listener) {
+    public MyActesAdapter(Assignatura myDataset, OnItemClickListener listener) {
         mDataset = myDataset;
         mListener = listener;
     }
@@ -80,7 +82,7 @@ public class MyActesAdapter extends RecyclerView.Adapter<MyActesAdapter.MyViewHo
     public void onBindViewHolder(final MyViewHolder holder, int position) {
         // - get element from your dataset at this position
         // - replace the contents of the view with that element
-        holder.mTextView.setText(this.mDataset.assignaturas.get(position).nomAssignatura);
+        holder.mTextView.setText( this.mDataset.actes.get(position).motiu + this.mDataset.actes.get(position).percentatge + this.mDataset.actes.get(position).nota);
         holder.mRoot.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -95,6 +97,6 @@ public class MyActesAdapter extends RecyclerView.Adapter<MyActesAdapter.MyViewHo
     // Return the size of your dataset (invoked by the layout manager)
     @Override
     public int getItemCount() {
-        return mDataset.assignaturas.size();
+        return mDataset.actes.size();
     }
 }
