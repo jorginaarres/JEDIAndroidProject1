@@ -13,9 +13,10 @@ import com.jediupc.helloandroid.DetallsAssignaturaActivity;
 import com.jediupc.helloandroid.R;
 import com.jediupc.helloandroid.model.Actes;
 
-public class AddingPercentsDialogClass extends Dialog implements
-        android.view.View.OnClickListener {
+public class EditPercentsDialogClass extends Dialog implements
+        View.OnClickListener {
 
+    private final int pos;
     public Context c;
     public Dialog d;
     public Button afegeix;
@@ -24,19 +25,20 @@ public class AddingPercentsDialogClass extends Dialog implements
     private Double numeroP;
     private Double nota;
 
-    public AddingPercentsDialogClass(Context a, int position) {
+    public EditPercentsDialogClass(Context a, int position, int pos) {
         super(a);
         // TODO Auto-generated constructor stub
         this.c = a;
         this.position= position;
+        this.pos=pos;
     }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         requestWindowFeature(Window.FEATURE_NO_TITLE);
-        setContentView(R.layout.custom_percents_dialog);
-        afegeix = (Button) findViewById(R.id.btn_actualitza);
+        setContentView(R.layout.custom_edit_percents_dialog);
+        afegeix = (Button) findViewById(R.id.btn_canvia);
         afegeix.setOnClickListener(this);
 
     }
@@ -45,23 +47,25 @@ public class AddingPercentsDialogClass extends Dialog implements
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
-            case R.id.btn_actualitza:
+            case R.id.btn_canvia:
 
-                motiuP = (EditText) findViewById(R.id.motiuPercent);
-                EditText numeroPerc = (EditText) findViewById(R.id.numeroPercent);
-                EditText notaPerc = (EditText) findViewById(R.id.notaActual);
-                String motiu= ((EditText) motiuP).getText().toString();
+                EditText notaPerc = (EditText) findViewById(R.id.novaNota);
 
-                if(!(motiu.isEmpty() && String.valueOf(numeroPerc).isEmpty() && String.valueOf(notaPerc).isEmpty()) ){
+
+                if(!String.valueOf(notaPerc).isEmpty()) {
                     tractaDoubles(((EditText) notaPerc).getText().toString(), "nota");
-                    tractaDoubles(((EditText) numeroPerc).getText().toString(), "percentatge");
-
 
                     DetallsAssignaturaActivity m = (DetallsAssignaturaActivity) c;
                     Log.d("AddingPercentsDialog", String.valueOf(this.position));
 
 
-                    m.getModel().assignaturas.get(this.position).actes.add(new Actes(motiu, numeroP, nota));
+                    m.getModel().assignaturas.get(this.position).actes.get(pos).nota = nota ;
+                    m.getModel().save(c);
+                    m.getModel().print();
+                }
+                else{
+                    DetallsAssignaturaActivity m = (DetallsAssignaturaActivity) c;
+                    m.getModel().assignaturas.get(this.position).actes.get(pos).nota = 0.0 ;
                     m.getModel().save(c);
                     m.getModel().print();
                 }

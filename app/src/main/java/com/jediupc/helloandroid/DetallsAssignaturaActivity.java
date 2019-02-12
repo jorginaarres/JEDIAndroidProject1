@@ -1,5 +1,6 @@
 package com.jediupc.helloandroid;
 
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
@@ -12,12 +13,11 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.helper.ItemTouchHelper;
 import android.util.Log;
-import android.view.Menu;
 import android.view.View;
-import android.widget.EditText;
 import android.widget.TextView;
 
 import com.jediupc.helloandroid.dialogs.AddingPercentsDialogClass;
+import com.jediupc.helloandroid.dialogs.EditPercentsDialogClass;
 import com.jediupc.helloandroid.model.ModelContainer;
 
 public class DetallsAssignaturaActivity extends AppCompatActivity {
@@ -44,10 +44,12 @@ public class DetallsAssignaturaActivity extends AppCompatActivity {
         this.mRecyclerView.setHasFixedSize(true);
         mLayoutManager = new LinearLayoutManager(this);
         mRecyclerView.setLayoutManager(this.mLayoutManager);
-
         enableDragDrop();
 
+
     }
+
+
 
     private void enableDragDrop() {
         ItemTouchHelper ith = new ItemTouchHelper(new ItemTouchHelper.Callback() {
@@ -108,17 +110,25 @@ public class DetallsAssignaturaActivity extends AppCompatActivity {
         mContainer.print();
         setTitle(this.mContainer.assignaturas.get(this.position).nomAssignatura);
 
+
         myActesAdapter= new MyActesAdapter(this.mContainer.assignaturas.get(this.position), new MyActesAdapter.OnItemClickListener() {
             @Override
             public void onItemClick(View v, int pos) {
-              //  Intent i = new Intent(DetallsAssignaturaActivity.this, DetallsAssignaturaActivity.class);
-              //  i.putExtra("Position",pos);
-              //  startActivity(i);
                 Log.d("DEBUGMainModel","Clico element"+ String.valueOf(pos));
+                //EditPercentsDialog = new EditPercentsDialog()
+                EditPercentsDialogClass cdd = new EditPercentsDialogClass(DetallsAssignaturaActivity.this, position, pos);
+                cdd.setOnDismissListener(new DialogInterface.OnDismissListener() {
+                    @Override
+                    public void onDismiss(DialogInterface dialog) {
+                        myActesAdapter.notifyDataSetChanged();
+                        calculaNota();
+                    }
+                });
+                cdd.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+                cdd.show();
+
             }
         });
-
-
 
 
         FloatingActionButton fab = findViewById(R.id.fab2);
@@ -128,6 +138,13 @@ public class DetallsAssignaturaActivity extends AppCompatActivity {
                 Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
                         .setAction("Action", null).show();
                 AddingPercentsDialogClass cdd = new AddingPercentsDialogClass(DetallsAssignaturaActivity.this, position);
+                cdd.setOnDismissListener(new DialogInterface.OnDismissListener() {
+                    @Override
+                    public void onDismiss(DialogInterface dialog) {
+                        myActesAdapter.notifyDataSetChanged();
+                        calculaNota();
+                    }
+                });
                 cdd.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
                 cdd.show();
             }
