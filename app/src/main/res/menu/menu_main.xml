@@ -7,4 +7,10 @@
         android:orderInCategory="100"
         android:title="Ajuda"
         app:showAsAction="never" />
+
+    <item
+        android:id="@+id/action_info"
+        android:orderInCategory="100"
+        android:title="Autor"
+        app:showAsAction="never" />
 </menu>

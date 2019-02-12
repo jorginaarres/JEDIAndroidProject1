@@ -18,6 +18,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 
 import com.jediupc.helloandroid.dialogs.CustomDialogClass;
+import com.jediupc.helloandroid.dialogs.InfoAuthorDialogClass;
 import com.jediupc.helloandroid.dialogs.InfoDialogClass;
 import com.jediupc.helloandroid.model.ModelContainer;
 
@@ -135,6 +136,12 @@ public class MainActivity extends AppCompatActivity {
         //noinspection SimplifiableIfStatement
         if (id == R.id.action_settings) {
             InfoDialogClass idc = new InfoDialogClass(this);
+            idc.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+            idc.show();
+            return true;
+        }
+        if(id == R.id.action_info ){
+            InfoAuthorDialogClass idc = new InfoAuthorDialogClass(this);
             idc.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
             idc.show();
             return true;
