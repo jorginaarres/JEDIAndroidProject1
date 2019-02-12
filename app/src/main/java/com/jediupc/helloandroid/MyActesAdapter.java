@@ -5,12 +5,12 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.EditText;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.jediupc.helloandroid.model.Assignatura;
 
-import java.util.ArrayList;
 import java.util.Collections;
 
 public class MyActesAdapter extends RecyclerView.Adapter<MyActesAdapter.MyViewHolder> implements ItemTouchHelperAdapter {
@@ -82,7 +82,8 @@ public class MyActesAdapter extends RecyclerView.Adapter<MyActesAdapter.MyViewHo
     public void onBindViewHolder(final MyViewHolder holder, int position) {
         // - get element from your dataset at this position
         // - replace the contents of the view with that element
-        holder.mTextView.setText( this.mDataset.actes.get(position).motiu + this.mDataset.actes.get(position).percentatge + this.mDataset.actes.get(position).nota);
+        holder.mTextView.setText( this.mDataset.actes.get(position).motiu +"   "+ this.mDataset.actes.get(position).percentatge+"%"+ "   "+this.mDataset.actes.get(position).nota);
+
         holder.mRoot.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

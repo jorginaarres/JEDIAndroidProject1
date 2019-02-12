@@ -10,14 +10,14 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.support.v7.widget.Toolbar;
 import android.support.v7.widget.helper.ItemTouchHelper;
 import android.util.Log;
 import android.view.Menu;
 import android.view.View;
+import android.widget.EditText;
+import android.widget.TextView;
 
 import com.jediupc.helloandroid.dialogs.AddingPercentsDialogClass;
-import com.jediupc.helloandroid.dialogs.CustomDialogClass;
 import com.jediupc.helloandroid.model.ModelContainer;
 
 public class DetallsAssignaturaActivity extends AppCompatActivity {
@@ -27,6 +27,7 @@ public class DetallsAssignaturaActivity extends AppCompatActivity {
     private RecyclerView mRecyclerView;
     private RecyclerView.LayoutManager mLayoutManager;
     private MyActesAdapter myActesAdapter;
+    private Double NotaActual;
 
 
     @Override
@@ -37,14 +38,15 @@ public class DetallsAssignaturaActivity extends AppCompatActivity {
 
 //        Toolbar toolbar = findViewById(R.id.toolbar);
   //      setSupportActionBar(toolbar);
-
-
+        TextView ETNotaActual= (TextView)findViewById(R.id.ETNota);
+        ETNotaActual.setText(String.valueOf(NotaActual));
         this.mRecyclerView = findViewById(R.id.RVactes);
         this.mRecyclerView.setHasFixedSize(true);
         mLayoutManager = new LinearLayoutManager(this);
         mRecyclerView.setLayoutManager(this.mLayoutManager);
 
         enableDragDrop();
+
     }
 
     private void enableDragDrop() {
@@ -66,6 +68,8 @@ public class DetallsAssignaturaActivity extends AppCompatActivity {
             @Override
             public void onSwiped(@NonNull RecyclerView.ViewHolder viewHolder, int i) {
                 myActesAdapter.onItemDismiss(viewHolder.getAdapterPosition());
+                calculaNota();
+
             }
 
             @Override
@@ -80,6 +84,20 @@ public class DetallsAssignaturaActivity extends AppCompatActivity {
         });
 
         ith.attachToRecyclerView(mRecyclerView);
+    }
+
+    private void calculaNota(){
+        NotaActual=0.0;
+        for(int i=0; i<this.mContainer.assignaturas.get(this.position).actes.size();++i) {
+            Double Nota = Double.valueOf(this.mContainer.assignaturas.get(this.position).actes.get(i).nota);
+            Double Percentatge = Double.valueOf(this.mContainer.assignaturas.get(this.position).actes.get(i).percentatge);
+
+            NotaActual += Nota * (Percentatge / 100);
+        }
+        Log.d("DetallsAssignatActivit",String.valueOf(this.position));
+        Log.d("DetallsAssignatActivit",String.valueOf(NotaActual));
+        TextView ETNotaActual= (TextView)findViewById(R.id.ETNota);
+        ETNotaActual.setText(String.valueOf(NotaActual));
     }
 
     @Override
@@ -101,6 +119,8 @@ public class DetallsAssignaturaActivity extends AppCompatActivity {
         });
 
 
+
+
         FloatingActionButton fab = findViewById(R.id.fab2);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -113,8 +133,10 @@ public class DetallsAssignaturaActivity extends AppCompatActivity {
             }
         });
 
-        mRecyclerView.setAdapter(this.myActesAdapter);
 
+
+        mRecyclerView.setAdapter(this.myActesAdapter);
+        calculaNota();
 
     }
 
@@ -125,10 +147,5 @@ public class DetallsAssignaturaActivity extends AppCompatActivity {
     }
 
     public ModelContainer getModel(){return mContainer;}
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.menu_actes, menu);
-        return true;
-    }
+
 }

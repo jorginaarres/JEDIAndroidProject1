@@ -1,6 +1,5 @@
 package com.jediupc.helloandroid.dialogs;
 
-import android.app.Activity;
 import android.app.Dialog;
 import android.content.Context;
 import android.os.Bundle;
@@ -11,11 +10,8 @@ import android.widget.Button;
 import android.widget.EditText;
 
 import com.jediupc.helloandroid.DetallsAssignaturaActivity;
-import com.jediupc.helloandroid.MainActivity;
 import com.jediupc.helloandroid.R;
 import com.jediupc.helloandroid.model.Actes;
-import com.jediupc.helloandroid.model.Assignatura;
-import com.jediupc.helloandroid.model.ModelContainer;
 
 public class AddingPercentsDialogClass extends Dialog implements
         android.view.View.OnClickListener {
@@ -25,6 +21,8 @@ public class AddingPercentsDialogClass extends Dialog implements
     public Button afegeix;
     public EditText motiuP;
     public int position;
+    private Double numeroP;
+    private Double nota;
 
     public AddingPercentsDialogClass(Context a, int position) {
         super(a);
@@ -49,11 +47,18 @@ public class AddingPercentsDialogClass extends Dialog implements
         switch (v.getId()) {
             case R.id.btn_actualitza:
                 motiuP = (EditText) findViewById(R.id.motiuPercent);
-                String nomass= ((EditText) motiuP).getText().toString();
+                EditText numeroPerc = (EditText) findViewById(R.id.numeroPercent);
+                EditText notaPerc = (EditText) findViewById(R.id.notaActual);
+
+                tractaDoubles(((EditText) notaPerc).getText().toString(),"nota");
+                tractaDoubles(((EditText) numeroPerc).getText().toString(),"percentatge");
+
+                String motiu= ((EditText) motiuP).getText().toString();
                 DetallsAssignaturaActivity m = (DetallsAssignaturaActivity) c;
                 Log.d("AddingPercentsDialog", String.valueOf(this.position));
-                m.getModel().assignaturas.get(this.position).actes.add(new Actes(nomass,0.0,0.0));
-              //  m.getModel().assignaturas.add(new Assignatura(nomass));
+
+
+                m.getModel().assignaturas.get(this.position).actes.add(new Actes(motiu,numeroP,nota));
                 m.getModel().save(c);
                 m.getModel().print();
 
@@ -62,6 +67,33 @@ public class AddingPercentsDialogClass extends Dialog implements
                 break;
         }
         dismiss();
+    }
+
+    private void tractaDoubles(String numeroATractar, String opcions) {
+        if(opcions== "nota"){
+
+            try{
+                nota= Double.valueOf(numeroATractar);
+            }
+            catch(NumberFormatException e){
+                nota=0.0;
+            }
+            if(nota<0 || nota>10) nota=0.0;
+        }
+        else if(opcions== "percentatge"){
+
+            try{
+                numeroP= Double.valueOf(numeroATractar);
+            }
+            catch(NumberFormatException e){
+                numeroP=0.0;
+            }
+            if(numeroP<1) numeroP=numeroP*100.0;
+            else if(numeroP>100) numeroP=0.0;
+
+        }
+
+
     }
 
 }
