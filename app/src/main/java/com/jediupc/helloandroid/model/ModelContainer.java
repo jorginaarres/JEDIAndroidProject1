@@ -19,10 +19,7 @@ import java.io.Serializable;
 import java.util.ArrayList;
 
 public class ModelContainer implements Serializable {
-    public String username;
     public ArrayList<Assignatura> assignaturas = new ArrayList<>();
-    public int removed;
-
 
     public static ModelContainer load(Context c) {
         try {
