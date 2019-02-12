@@ -15,7 +15,7 @@
         android:layout_margin="10dp"
         android:text="Has afegit un percentatge massa gran"
         android:textColor="@android:color/white"
-        android:textSize="15dp"
+        android:textSize="20sp"
         android:textStyle="bold" />
 
     <LinearLayout
@@ -28,8 +28,9 @@
 
         <Button
             android:id="@+id/btn_accepta"
+            android:textSize="20sp"
             android:layout_width="100dp"
-            android:layout_height="30dp"
+            android:layout_height="20dp"
             android:layout_marginLeft="5dp"
             android:background="@android:color/white"
             android:clickable="true"
