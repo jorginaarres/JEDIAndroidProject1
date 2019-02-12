@@ -27,14 +27,35 @@
         app:srcCompat="@drawable/ic_add_circle" />
 
     <TextView
-
+        app:layout_constraintBottom_toBottomOf="@id/textView2"
+        app:layout_constraintLeft_toRightOf="@id/textView2"
+        android:layout_marginLeft="30dp"
         android:id="@+id/ETNota"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        app:layout_constraintBottom_toTopOf="@+id/fab2"
-        android:ems="10"
-        android:inputType="numberDecimal"
-        tools:layout_editor_absoluteX="35dp"
-        tools:layout_editor_absoluteY="377dp" />
+        android:ems="40"
+        android:textSize="30sp"
+        android:inputType="numberDecimal" />
 
+    <TextView
+        app:layout_constraintRight_toLeftOf="@id/fab2"
+        app:layout_constraintBottom_toBottomOf="parent"
+        android:layout_marginBottom="40dp"
+        android:layout_marginRight="20dp"
+        android:id="@+id/textView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Afegeix percentatge de càlcul"
+        />
+    <TextView
+        android:id="@+id/textView2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Total:"
+        android:textSize="30sp"
+        android:layout_marginLeft="20dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        android:layout_marginBottom="80dp"
+        />
 </android.support.constraint.ConstraintLayout>

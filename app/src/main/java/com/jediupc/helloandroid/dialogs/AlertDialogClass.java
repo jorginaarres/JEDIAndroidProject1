@@ -13,10 +13,9 @@ import com.jediupc.helloandroid.DetallsAssignaturaActivity;
 import com.jediupc.helloandroid.R;
 import com.jediupc.helloandroid.model.Actes;
 
-public class EditPercentsDialogClass extends Dialog implements
+public class AlertDialogClass extends Dialog implements
         View.OnClickListener {
 
-    private final int pos;
     public Context c;
     public Dialog d;
     public Button afegeix;
@@ -25,20 +24,19 @@ public class EditPercentsDialogClass extends Dialog implements
     private Double numeroP;
     private Double nota;
 
-    public EditPercentsDialogClass(Context a, int position, int pos) {
+    public AlertDialogClass(Context a, int position) {
         super(a);
         // TODO Auto-generated constructor stub
         this.c = a;
         this.position= position;
-        this.pos=pos;
     }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         requestWindowFeature(Window.FEATURE_NO_TITLE);
-        setContentView(R.layout.custom_edit_percents_dialog);
-        afegeix = (Button) findViewById(R.id.btn_canvia);
+        setContentView(R.layout.custom_alert_dialog);
+        afegeix = (Button) findViewById(R.id.btn_accepta);
         afegeix.setOnClickListener(this);
 
     }
@@ -47,23 +45,7 @@ public class EditPercentsDialogClass extends Dialog implements
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
-            case R.id.btn_canvia:
-
-                EditText notaPerc = (EditText) findViewById(R.id.novaNota);
-
-
-                if(!String.valueOf(notaPerc).isEmpty()) {
-                    tractaDoubles(((EditText) notaPerc).getText().toString(), "nota");
-
-                    DetallsAssignaturaActivity m = (DetallsAssignaturaActivity) c;
-                    Log.d("AddingPercentsDialog", String.valueOf(this.position));
-
-
-                    m.getModel().assignaturas.get(this.position).actes.get(pos).nota = nota ;
-                    m.getModel().save(c);
-                    m.getModel().print();
-                }
-
+            case R.id.btn_accepta:
                 break;
             default:
                 break;

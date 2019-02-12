@@ -17,10 +17,12 @@ import android.view.View;
 import android.widget.TextView;
 
 import com.jediupc.helloandroid.dialogs.AddingPercentsDialogClass;
+import com.jediupc.helloandroid.dialogs.AlertDialogClass;
 import com.jediupc.helloandroid.dialogs.EditPercentsDialogClass;
 import com.jediupc.helloandroid.model.ModelContainer;
 
 public class DetallsAssignaturaActivity extends AppCompatActivity {
+
 
     private ModelContainer mContainer;
     private int position;
@@ -28,6 +30,7 @@ public class DetallsAssignaturaActivity extends AppCompatActivity {
     private RecyclerView.LayoutManager mLayoutManager;
     private MyActesAdapter myActesAdapter;
     private Double NotaActual;
+    private Double SumaPercentatge;
 
 
     @Override
@@ -99,9 +102,28 @@ public class DetallsAssignaturaActivity extends AppCompatActivity {
         Log.d("DetallsAssignatActivit",String.valueOf(this.position));
         Log.d("DetallsAssignatActivit",String.valueOf(NotaActual));
         TextView ETNotaActual= (TextView)findViewById(R.id.ETNota);
-        ETNotaActual.setText(String.valueOf(NotaActual));
+        ETNotaActual.setText(String.format("%.2f", NotaActual));
     }
 
+    private void calculaPercentatge(){
+        SumaPercentatge=0.0;
+        int sizes=this.mContainer.assignaturas.get(this.position).actes.size();
+        for(int i=0; i<sizes;++i) {
+
+            Double Percentatge = Double.valueOf(this.mContainer.assignaturas.get(this.position).actes.get(i).percentatge);
+            SumaPercentatge+=Percentatge;
+        }
+        if(SumaPercentatge>100){
+            sizes-=1;
+            this.mContainer.assignaturas.get(this.position).actes.remove(sizes);
+            this.mContainer.save(this);
+            AlertDialogClass cdd = new AlertDialogClass(DetallsAssignaturaActivity.this, position);
+            cdd.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+            cdd.show();
+
+        }
+        calculaNota();
+    }
     @Override
     protected void onResume() {
 
@@ -142,6 +164,7 @@ public class DetallsAssignaturaActivity extends AppCompatActivity {
                     @Override
                     public void onDismiss(DialogInterface dialog) {
                         myActesAdapter.notifyDataSetChanged();
+                        calculaPercentatge();
                         calculaNota();
                     }
                 });
