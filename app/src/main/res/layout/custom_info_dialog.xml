@@ -8,15 +8,23 @@
     android:orientation="vertical">
 
     <TextView
-        android:id="@+id/txt_dia5"
+        android:id="@+id/txt_dia"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
         android:layout_margin="10dp"
-        android:text="Has afegit un percentatge massa gran"
+        android:text="Tips:
+        1. Per afegir una nova assignatura al càlcul clica al botó +.
+
+2. Per consultar el càlcul i nota d'una assignatura fes clic a la tarja de l'assignatura.
+
+        3. Per afegir un concepte, un percentatge i una nota cal haver creat una assignatura prèviament
+
+        4. Per eliminar una assignatura arrastrar etiqueta de dreta a esquerra."
         android:textColor="@android:color/white"
         android:textSize="20sp"
         android:textStyle="bold" />
+
 
     <LinearLayout
         android:layout_width="wrap_content"
@@ -27,8 +35,7 @@
 
 
         <Button
-            android:id="@+id/btn_accepta"
-            android:textSize="20sp"
+            android:id="@+id/btn_accepta2"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginLeft="5dp"
@@ -37,6 +44,8 @@
             android:text="Accepta"
             android:textColor="#ABACAB"
             android:textStyle="bold"
+            android:textSize="20sp"
+            android:padding="5dp"
             android:layout_marginBottom="20dp"/>
     </LinearLayout>
 

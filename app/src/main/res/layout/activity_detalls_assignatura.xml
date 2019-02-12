@@ -4,7 +4,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".DetallsAssignaturaActivity">
+    tools:context=".DetallsAssignaturaActivity"
+    android:background="@drawable/trianglify">
 
     <android.support.v7.widget.RecyclerView
         android:id="@+id/RVactes"
@@ -14,7 +15,8 @@
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
-        tools:layout_editor_absoluteY="8dp" />
+        tools:layout_editor_absoluteY="8dp"
+        android:layout_margin="10dp"/>
 
     <android.support.design.widget.FloatingActionButton
         app:layout_constraintBottom_toBottomOf="parent"
@@ -35,7 +37,8 @@
         android:layout_height="wrap_content"
         android:ems="40"
         android:textSize="35sp"
-        android:inputType="numberDecimal" />
+        android:inputType="numberDecimal"
+        android:textColor="#ffffff"/>
 
     <TextView
         app:layout_constraintRight_toLeftOf="@id/fab2"
@@ -43,9 +46,11 @@
         android:layout_marginBottom="40dp"
         android:layout_marginRight="20dp"
         android:id="@+id/textView"
+        android:textSize="20sp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Afegeix percentatge de càlcul"
+        android:textColor="#ffffff"
         />
     <TextView
         android:id="@+id/textView2"
@@ -57,5 +62,6 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintLeft_toLeftOf="parent"
         android:layout_marginBottom="80dp"
+        android:textColor="#ffffff"
         />
 </android.support.constraint.ConstraintLayout>

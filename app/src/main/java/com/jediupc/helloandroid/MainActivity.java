@@ -18,6 +18,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 
 import com.jediupc.helloandroid.dialogs.CustomDialogClass;
+import com.jediupc.helloandroid.dialogs.InfoDialogClass;
 import com.jediupc.helloandroid.model.ModelContainer;
 
 public class MainActivity extends AppCompatActivity {
@@ -99,8 +100,8 @@ public class MainActivity extends AppCompatActivity {
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
+               // Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
+                //        .setAction("Action", null).show();
                 CustomDialogClass cdd = new CustomDialogClass(MainActivity.this);
                 cdd.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
                 cdd.show();
@@ -133,6 +134,9 @@ public class MainActivity extends AppCompatActivity {
 
         //noinspection SimplifiableIfStatement
         if (id == R.id.action_settings) {
+            InfoDialogClass idc = new InfoDialogClass(this);
+            idc.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+            idc.show();
             return true;
         }
 

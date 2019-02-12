@@ -1,6 +1,7 @@
 package com.jediupc.helloandroid;
 
 import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.helper.ItemTouchHelper;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -8,9 +9,10 @@ import android.view.ViewGroup;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.jediupc.helloandroid.model.Assignatura;
 import com.jediupc.helloandroid.model.ModelContainer;
 
-
+import java.util.ArrayList;
 import java.util.Collections;
 
 public class MyAdapter extends RecyclerView.Adapter<MyAdapter.MyViewHolder> implements ItemTouchHelperAdapter {
